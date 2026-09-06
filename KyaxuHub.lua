@@ -1259,6 +1259,9 @@ defineModule("UI.MainGui", function(module)
         local trackBG = makeFrame(frame, UDim2.new(1, -16, 0, 6), UDim2.new(0, 8, 0, 36), THEME.STROKE)
         applyCorner(trackBG, 3)
 
+        local trackBtn = makeButton(trackBG, "", UDim2.new(1, 0, 1, 0), nil, Color3.fromRGB(0,0,0), THEME.TEXT, 0)
+        trackBtn.BackgroundTransparency = 1
+
         local fill = makeFrame(trackBG, UDim2.new(0, 0, 1, 0), nil, THEME.ACCENT)
         applyCorner(fill, 3)
 
@@ -1281,7 +1284,7 @@ defineModule("UI.MainGui", function(module)
 
         local dragging = false
         thumb.MouseButton1Down:Connect(function() dragging = true end)
-        trackBG.MouseButton1Down:Connect(function(_, _, x)
+        trackBtn.MouseButton1Down:Connect(function(x)
             dragging = true
             local rel = math.clamp((x - trackBG.AbsolutePosition.X) / trackBG.AbsoluteSize.X, 0, 1)
             setValue(minVal + rel * (maxVal - minVal))
